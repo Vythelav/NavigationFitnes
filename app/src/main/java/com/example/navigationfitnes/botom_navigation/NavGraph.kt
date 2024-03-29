@@ -9,7 +9,11 @@ import androidx.navigation.compose.composable
 fun NavGraph(
     navHostController: NavHostController
 ) {
-    NavHost(navController = navHostController, startDestination = "screen_1"){
+    NavHost(navController = navHostController, startDestination = "Open"){
+
+        composable("Open"){
+            Screen1()
+        }
         composable("screen_1"){
             Screen1()
         }
@@ -21,6 +25,9 @@ fun NavGraph(
         }
         composable("screen_4"){
             Screen4()
+        }
+        composable("screen_5"){
+            Screen5()
         }
 
     }

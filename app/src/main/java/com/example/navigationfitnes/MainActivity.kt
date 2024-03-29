@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.navigationfitnes.botom_navigation.MainScreen
+import com.example.navigationfitnes.botom_navigation.Open
 import com.example.navigationfitnes.ui.theme.NavigationFitnesTheme
 
 class MainActivity : ComponentActivity() {
@@ -19,6 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NavigationFitnesTheme {
                 MainScreen()
+
             }
         }
     }

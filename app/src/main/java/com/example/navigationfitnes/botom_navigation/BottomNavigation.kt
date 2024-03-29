@@ -24,7 +24,8 @@ fun BottomNavigation(
         BottomItem.Screen1,
         BottomItem.Screen2,
         BottomItem.Screen3,
-        BottomItem.Screen4
+        BottomItem.Screen4,
+        BottomItem.Screen5
         )
     NavigationBar(
         modifier = Modifier
@@ -54,7 +55,7 @@ fun BottomNavigation(
                     selectedIconColor = Color.Red,
                     unselectedIconColor = Color.Gray,
                     selectedTextColor = Color.Red,
-                    unselectedTextColor = Color.Gray
+                    unselectedTextColor = Color.Gray,
                 )
             )
         }
