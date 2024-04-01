@@ -23,8 +23,6 @@ fun BottomNavigation(
     val listItems = listOf(
         BottomItem.Screen1,
         BottomItem.Screen2,
-        BottomItem.Screen3,
-        BottomItem.Screen4,
         BottomItem.Screen5
         )
     NavigationBar(
@@ -48,7 +46,7 @@ fun BottomNavigation(
                 label = {
                     Text(
                         text = item.title,
-                        fontSize = 9.sp
+                        fontSize = 15.sp
                     )
                 },
                 colors = NavigationBarItemDefaults.colors(
