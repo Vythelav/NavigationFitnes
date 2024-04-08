@@ -1,5 +1,6 @@
 package com.example.navigationfitnes.botom_navigation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
@@ -8,10 +9,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -67,26 +70,35 @@ fun Open(navController: NavController) {
                 .fillMaxWidth()
                 .padding(10.dp)
         )
-        Column(modifier = Modifier,
+        Column(
+            modifier = Modifier,
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween) {
+            verticalArrangement = Arrangement.SpaceBetween
+        ) {
             Text(text = "Логин", fontSize = 26.sp)
-            OutlinedTextField( modifier = Modifier, value = login, onValueChange = {login = it},label = {"Логин"})
+            OutlinedTextField(
+                modifier = Modifier,
+                value = login,
+                onValueChange = { login = it },
+                label = { "Логин" })
             Text(text = "Пароль", fontSize = 26.sp)
-            OutlinedTextField(value = password, onValueChange = {password = it}, label = {"Пароль"})
+            OutlinedTextField(
+                value = password,
+                onValueChange = { password = it },
+                label = { "Пароль" })
             Button(
                 modifier = Modifier.padding(15.dp),
                 onClick = {}) {
-                Text(fontSize = 30.sp , text = "Войти")}
-            Button( modifier = Modifier.padding(15.dp),
+                Text(fontSize = 30.sp, text = "Войти")
+            }
+            Button(modifier = Modifier.padding(15.dp),
                 onClick = { navController.navigate("screen_1") }) {
-                Text(fontSize = 30.sp , text = "Open")
+                Text(fontSize = 30.sp, text = "Открыть")
             }
         }
     }
 
 }
-
 
 
 @Composable
@@ -150,110 +162,106 @@ fun Screen1(onClick: (name: String, description: String) -> Unit) {
             "Сгибание рук с гантелями или штангой — 3 похода по 10 раз. Во время упражнения мышцы должны дрожать. \n" +
                     "Подъем штанги на скамье Скотта — 3 похода по 10 раз. Поставь локти на скамью, возьми гриф и сгибай руки, чувствуя напряжение мышц рук. Медленно опусти",
             50
-        ){ name, description -> onClick(name, description) }
+        ) { name, description -> onClick(name, description) }
 
     }
 }
 
-            @Composable
-            private fun train(
-                name: String,
-                description: String,
-                gym: Int,
-                onClick: (name: String, description: String) -> Unit
+@Composable
+private fun train(
+    name: String,
+    description: String,
+    gym: Int,
+    onClick: (name: String, description: String) -> Unit
+) {
+    var id = remember {
+        mutableStateOf(0)
+    }
+
+    Card(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .height(120.dp)
+            .clickable { onClick(name, description) },
+    ) {
+
+        Row(
+            modifier = Modifier,
+        ) {
+            Image(painter = painterResource(id = R.drawable.fintess), contentDescription = "")
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
             ) {
-                Card(
-                    modifier = Modifier
-                        .padding(16.dp)
-                        .fillMaxWidth()
-                        .height(120.dp)
-                        .clickable { onClick(name, description) },
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
                 ) {
                     Row(
                         modifier = Modifier,
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
                     ) {
-                        Image(painter = painterResource(id = R.drawable.fintess), contentDescription = "")
-                        Box(
-                            modifier = Modifier
-                                .fillMaxSize(),
-                        ) {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.Center
-                            ) {
-                                Row(modifier = Modifier,
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.Center
-                                ) {
-                                    Text(
-                                        text = "${name}", color = Color.Gray, fontSize = 40.sp,
-                                        textAlign = TextAlign.Center
-                                    )
-                                }
+                        Text(
+                            text = "${name}", color = Color.Gray, fontSize = 40.sp,
+                            textAlign = TextAlign.Center
+                        )
 
-
-
-                            }
                         }
                     }
-                }
-            }
-
-
-
-            @Composable
-            fun Screen2(
-                navHostController: NavHostController,
-                nameRecept: String,
-                description: String,
-                onClick: () -> Unit
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .fillMaxSize()
-                        .fillMaxSize()
-                        .verticalScroll(ScrollState(0)),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Top
-                ) {
-                    val addedCards = remember { mutableStateOf(mutableListOf<String>()) }
-                    Text(text = "$nameRecept", fontSize = 50.sp)
-                    Text(text = "Тренировка включает:", fontSize = 30.sp)
-                    Card(
-                        Modifier.padding(10.dp)
-                    ) {
-                        Text(text = "$description", fontSize = 20.sp)
-                    }
-                    Row(modifier = Modifier.padding(10.dp)) {
-
-
-                        Button(onClick = onClick) {
-                            Text(text = "Выполнено")
-                        }
-                        Button(onClick = { navHostController.navigate("screen_5") }) {
-                            Text(text = "В избранное")
-                        }
-
-                    }
-
 
 
                 }
+            }
+        }
+    }
 
+@Composable
+fun Screen2(
+    navHostController: NavHostController,
+    nameRecept: String,
+    description: String,
+    onClick: () -> Unit
+) {
+
+    Column(
+        modifier = Modifier
+            .padding(10.dp)
+            .fillMaxSize()
+            .fillMaxSize()
+            .verticalScroll(ScrollState(0)),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        val addedCards = remember { mutableStateOf(mutableListOf<String>()) }
+        Text(text = "$nameRecept", fontSize = 50.sp)
+        Text(text = "Тренировка включает:", fontSize = 30.sp)
+        Card(
+            Modifier.padding(10.dp)
+        ) {
+            Text(text = "$description", fontSize = 20.sp)
+        }
+        Row(modifier = Modifier.padding(10.dp)) {
+
+
+            Button(onClick = onClick) {
+                Text(text = "Выполнено")
             }
 
 
+        }
+
+    }
 
 
-
-
+}
 
 
 @Composable
 fun Screen5() {
-Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-    Text(text = "Избранное", fontSize = 40.sp)
-}
+    Column(modifier = Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = "Избранное", fontSize = 40.sp)
+    }
 
 }
